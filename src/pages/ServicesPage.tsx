@@ -72,17 +72,43 @@ const ServicesPage = () => {
   return (
     <div className="min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-brand-navy text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+      <section className="relative bg-gradient-to-br from-brand-navy via-brand-dark-blue to-brand-navy text-white py-20 overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center bg-brand-light-blue/20 backdrop-blur-sm px-4 py-2 rounded-full text-brand-light-blue text-sm font-medium mb-6">
+            <Shield className="w-4 h-4 mr-2" />
+            Professional Credit Solutions
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             Our Credit Repair Services
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Comprehensive credit solutions to help you achieve financial freedom. 
             All services are performed legally and professionally by registered experts.
           </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/enquiry"
+              className="inline-flex items-center justify-center bg-brand-blue hover:bg-brand-light-blue text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+            >
+              <CheckCircle className="w-5 h-5 mr-2" />
+              Start Your Enquiry
+            </Link>
+            <Link
+              to="/pricing"
+              className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-lg font-semibold transition-all duration-300"
+            >
+              View Pricing
+            </Link>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Services Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

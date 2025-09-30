@@ -36,16 +36,40 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-brand-navy text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+      <section className="relative bg-gradient-to-br from-brand-navy via-brand-dark-blue to-brand-navy text-white py-20 overflow-hidden">
+        {/* Geometric Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-brand-light-blue/10 rounded-full"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-brand-blue/10 rounded-full"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="w-96 h-96 border border-brand-light-blue/20 rounded-full"></div>
+            <div className="absolute inset-8 border border-brand-blue/20 rounded-full"></div>
+          </div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center bg-amber-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-amber-300 text-sm font-medium mb-6">
+            <Award className="w-4 h-4 mr-2" />
+            Established 2016
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             About Rare Pieces Credit Solutions
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Your trusted partner in credit repair and financial rehabilitation across South Africa
           </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <div className="flex items-center bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full">
+              <Users className="w-5 h-5 text-brand-light-blue mr-2" />
+              <span className="text-sm font-medium">500+ Clients Helped</span>
+            </div>
+            <div className="flex items-center bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full">
+              <Shield className="w-5 h-5 text-green-400 mr-2" />
+              <span className="text-sm font-medium">Registered Company</span>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Company Overview */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -72,7 +96,7 @@ const AboutPage = () => {
           </div>
           <div>
             <img 
-              src="/credit-clear.jpg"
+              src="/rare-pieces-of.essence.jpg"
               alt="Rare Pieces Credit Solutions"
               className="w-full h-auto rounded-2xl shadow-lg"
             />

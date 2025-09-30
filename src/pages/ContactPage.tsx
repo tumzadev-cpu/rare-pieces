@@ -36,16 +36,54 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-brand-navy text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+      <section className="relative bg-gradient-to-br from-brand-navy via-brand-dark-blue to-brand-navy text-white py-20 overflow-hidden">
+        {/* Contact-themed Background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-4 h-4 bg-green-400/30 rounded-full animate-ping"></div>
+          <div className="absolute top-40 right-32 w-3 h-3 bg-blue-400/30 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-32 left-40 w-5 h-5 bg-brand-light-blue/30 rounded-full animate-ping" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-20 right-20 w-4 h-4 bg-green-400/30 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+          
+          {/* Connection lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center bg-green-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-green-300 text-sm font-medium mb-6">
+            <MessageCircle className="w-4 h-4 mr-2" />
+            24/7 WhatsApp Support
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             Contact Us
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Get in touch with our credit repair specialists. We're here to help you fix your credit and secure your financial future.
           </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <a
+              href="tel:+27784306215"
+              className="inline-flex items-center bg-blue-500/20 backdrop-blur-sm hover:bg-blue-500/30 px-6 py-3 rounded-full text-blue-300 transition-all duration-300"
+            >
+              <Phone className="w-4 h-4 mr-2" />
+              +27 78 430 6215
+            </a>
+            <a
+              href="mailto:info@rarepieces.co.za"
+              className="inline-flex items-center bg-amber-500/20 backdrop-blur-sm hover:bg-amber-500/30 px-6 py-3 rounded-full text-amber-300 transition-all duration-300"
+            >
+              <Mail className="w-4 h-4 mr-2" />
+              info@rarepieces.co.za
+            </a>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Contact Methods */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

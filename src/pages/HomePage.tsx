@@ -42,7 +42,8 @@ const HomePage = () => {
           />
         </div>
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/80 via-brand-dark-blue/70 to-brand-navy/80 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/30 via-brand-dark-blue/20 to-brand-navy/30 z-10"></div>
+
         
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -51,7 +52,7 @@ const HomePage = () => {
                 Fix Your Credit,
                 <span className="text-brand-light-blue block">Secure Your Future</span>
               </h1>
-              <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+              <p className="text-xl text-white-300 mb-8 leading-relaxed">
                 Professional credit repair services in South Africa. We help you remove debt reviews, 
                 adverse accounts, judgements, and improve your credit score for a better financial future.
               </p>

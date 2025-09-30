@@ -64,16 +64,41 @@ const PricingPage = () => {
   return (
     <div className="min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-brand-navy text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+      <section className="relative bg-gradient-to-br from-brand-navy via-brand-dark-blue to-brand-navy text-white py-20 overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-brand-light-blue/10 rounded-full blur-xl"></div>
+          <div className="absolute bottom-20 right-10 w-40 h-40 bg-brand-blue/10 rounded-full blur-xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-brand-blue/5 to-brand-light-blue/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center bg-green-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-green-300 text-sm font-medium mb-6">
+            <CheckCircle className="w-4 h-4 mr-2" />
+            No Hidden Fees
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             Transparent Pricing
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Clear, upfront pricing for all our credit repair services. No hidden fees, no surprises.
           </p>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+              <div className="text-2xl font-bold text-brand-light-blue">R6,000</div>
+              <div className="text-sm text-gray-300">Starting from</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+              <div className="text-2xl font-bold text-brand-light-blue">95%+</div>
+              <div className="text-sm text-gray-300">Success Rate</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+              <div className="text-2xl font-bold text-brand-light-blue">30-90</div>
+              <div className="text-sm text-gray-300">Days Process</div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Main Pricing Cards */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

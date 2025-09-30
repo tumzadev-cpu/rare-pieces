@@ -80,17 +80,42 @@ const DocumentsPage = () => {
   return (
     <div className="min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-brand-navy text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+      <section className="relative bg-gradient-to-br from-brand-navy via-brand-dark-blue to-brand-navy text-white py-20 overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full opacity-20">
+            <div className="absolute top-20 left-20 w-2 h-2 bg-brand-light-blue rounded-full animate-pulse"></div>
+            <div className="absolute top-40 right-32 w-3 h-3 bg-brand-blue rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute bottom-32 left-40 w-2 h-2 bg-brand-light-blue rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute bottom-20 right-20 w-3 h-3 bg-brand-blue rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          </div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center bg-blue-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-blue-300 text-sm font-medium mb-6">
+            <FileText className="w-4 h-4 mr-2" />
+            Document Requirements
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             Required Documents
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Prepare the necessary documents for your credit repair service. Having the right documentation 
             ensures faster processing and better results.
           </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-brand-light-blue">
+              ID Document Required
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-brand-light-blue">
+              Proof of Residence
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-brand-light-blue">
+              Service-Specific Docs
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Document Requirements */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

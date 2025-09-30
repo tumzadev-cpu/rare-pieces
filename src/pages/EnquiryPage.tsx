@@ -220,16 +220,37 @@ const EnquiryPage = () => {
   return (
     <div className="min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-brand-navy text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+      <section className="relative bg-gradient-to-br from-brand-navy via-brand-dark-blue to-brand-navy text-white py-20 overflow-hidden">
+        {/* Interactive Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-blue/5 to-transparent transform -skew-y-1"></div>
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-brand-light-blue/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-64 h-64 bg-brand-blue/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center bg-green-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-green-300 text-sm font-medium mb-6">
+            <Send className="w-4 h-4 mr-2" />
+            Free Consultation
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             Submit Your Enquiry
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Complete the form below to start your credit repair journey. We'll contact you with payment details and next steps.
           </p>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg mx-auto">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+              <div className="text-lg font-semibold text-brand-light-blue">Step 1</div>
+              <div className="text-sm text-gray-300">Submit Form</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+              <div className="text-lg font-semibold text-brand-light-blue">Step 2</div>
+              <div className="text-sm text-gray-300">Make Payment</div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Form */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
