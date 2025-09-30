@@ -66,7 +66,6 @@ const ServicesPage = () => {
       fee: "Contact for Quote",
       timeline: "Circumstantial - No Credit Applications to be initiated by Client during this period",
       icon: <Banknote className="w-12 h-12 text-teal-500" />
-    }
     },
     {
       title: "Consolidation Loans for Permanently Employed Government Employees",
@@ -76,6 +75,7 @@ const ServicesPage = () => {
       fee: "Contact for Quote",
       timeline: "Circumstantial - No Credit Applications to be initiated by Client during this period",
       icon: <Banknote className="w-12 h-12 text-emerald-500" />
+    }
   ];
 
   return (
