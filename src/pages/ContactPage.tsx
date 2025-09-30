@@ -37,25 +37,18 @@ const ContactPage = () => {
     <div className="min-h-screen pb-20">
       {/* Header */}
       <section className="relative bg-gradient-to-br from-brand-navy via-brand-dark-blue to-brand-navy text-white py-20 overflow-hidden">
-        {/* Contact-themed Background */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-4 h-4 bg-green-400/30 rounded-full animate-ping"></div>
-          <div className="absolute top-40 right-32 w-3 h-3 bg-blue-400/30 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-32 left-40 w-5 h-5 bg-brand-light-blue/30 rounded-full animate-ping" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute bottom-20 right-20 w-4 h-4 bg-green-400/30 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
-          
-          {/* Connection lines */}
-          <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
-                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/credit-repair.jpg"
+            alt="Credit repair background"
+            className="w-full h-full object-cover opacity-20"
+          />
         </div>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/30 via-brand-dark-blue/20 to-brand-navy/30 z-10"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center bg-green-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-green-300 text-sm font-medium mb-6">
             <MessageCircle className="w-4 h-4 mr-2" />
             24/7 WhatsApp Support

@@ -37,17 +37,18 @@ const AboutPage = () => {
     <div className="min-h-screen pb-20">
       {/* Header */}
       <section className="relative bg-gradient-to-br from-brand-navy via-brand-dark-blue to-brand-navy text-white py-20 overflow-hidden">
-        {/* Geometric Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-brand-light-blue/10 rounded-full"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-brand-blue/10 rounded-full"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div className="w-96 h-96 border border-brand-light-blue/20 rounded-full"></div>
-            <div className="absolute inset-8 border border-brand-blue/20 rounded-full"></div>
-          </div>
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/credit-repair.jpg"
+            alt="Credit repair background"
+            className="w-full h-full object-cover opacity-20"
+          />
         </div>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/30 via-brand-dark-blue/20 to-brand-navy/30 z-10"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center bg-amber-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-amber-300 text-sm font-medium mb-6">
             <Award className="w-4 h-4 mr-2" />
             Established 2016

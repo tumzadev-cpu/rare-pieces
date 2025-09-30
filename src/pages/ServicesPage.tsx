@@ -73,14 +73,18 @@ const ServicesPage = () => {
     <div className="min-h-screen pb-20">
       {/* Header */}
       <section className="relative bg-gradient-to-br from-brand-navy via-brand-dark-blue to-brand-navy text-white py-20 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }} />
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/credit-repair.jpg"
+            alt="Credit repair background"
+            className="w-full h-full object-cover opacity-20"
+          />
         </div>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/30 via-brand-dark-blue/20 to-brand-navy/30 z-10"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center bg-brand-light-blue/20 backdrop-blur-sm px-4 py-2 rounded-full text-brand-light-blue text-sm font-medium mb-6">
             <Shield className="w-4 h-4 mr-2" />
             Professional Credit Solutions

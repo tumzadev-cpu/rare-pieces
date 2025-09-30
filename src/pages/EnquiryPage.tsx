@@ -221,14 +221,18 @@ const EnquiryPage = () => {
     <div className="min-h-screen pb-20">
       {/* Header */}
       <section className="relative bg-gradient-to-br from-brand-navy via-brand-dark-blue to-brand-navy text-white py-20 overflow-hidden">
-        {/* Interactive Background */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-blue/5 to-transparent transform -skew-y-1"></div>
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-brand-light-blue/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-          <div className="absolute top-3/4 right-1/4 w-64 h-64 bg-brand-blue/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/credit-repair.jpg"
+            alt="Credit repair background"
+            className="w-full h-full object-cover opacity-20"
+          />
         </div>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/30 via-brand-dark-blue/20 to-brand-navy/30 z-10"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center bg-green-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-green-300 text-sm font-medium mb-6">
             <Send className="w-4 h-4 mr-2" />
             Free Consultation

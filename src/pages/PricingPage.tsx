@@ -65,14 +65,18 @@ const PricingPage = () => {
     <div className="min-h-screen pb-20">
       {/* Header */}
       <section className="relative bg-gradient-to-br from-brand-navy via-brand-dark-blue to-brand-navy text-white py-20 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-brand-light-blue/10 rounded-full blur-xl"></div>
-          <div className="absolute bottom-20 right-10 w-40 h-40 bg-brand-blue/10 rounded-full blur-xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-brand-blue/5 to-brand-light-blue/5 rounded-full blur-3xl"></div>
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/credit-repair.jpg"
+            alt="Credit repair background"
+            className="w-full h-full object-cover opacity-20"
+          />
         </div>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/30 via-brand-dark-blue/20 to-brand-navy/30 z-10"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center bg-green-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-green-300 text-sm font-medium mb-6">
             <CheckCircle className="w-4 h-4 mr-2" />
             No Hidden Fees
