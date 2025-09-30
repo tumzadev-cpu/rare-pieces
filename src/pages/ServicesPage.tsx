@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, CreditCard, Gavel, AlertTriangle, FileText, Banknote, TrendingUp, CheckCircle } from 'lucide-react';
+import { Shield, CreditCard, Gavel, TriangleAlert as AlertTriangle, FileText, Banknote, TrendingUp, CircleCheck as CheckCircle } from 'lucide-react';
 
 const ServicesPage = () => {
   const services = [

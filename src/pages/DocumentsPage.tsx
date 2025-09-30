@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FileText, Shield, AlertTriangle, Gavel, CreditCard, CheckCircle } from 'lucide-react';
+import { FileText, Shield, TriangleAlert as AlertTriangle, Gavel, CreditCard, CircleCheck as CheckCircle } from 'lucide-react';
 
 const DocumentsPage = () => {
   const documentRequirements = [

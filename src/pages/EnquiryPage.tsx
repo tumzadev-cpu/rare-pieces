@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircle, Upload, CheckCircle, Send, Loader } from 'lucide-react';
+import { MessageCircle, Upload, CircleCheck as CheckCircle, Send, Loader } from 'lucide-react';
 
 const EnquiryPage = () => {
   const [formData, setFormData] = useState({

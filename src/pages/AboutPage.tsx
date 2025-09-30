@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Award, Users, Clock, CheckCircle, Target } from 'lucide-react';
+import { Shield, Award, Users, Clock, CircleCheck as CheckCircle, Target } from 'lucide-react';
 
 const AboutPage = () => {
   const values = [

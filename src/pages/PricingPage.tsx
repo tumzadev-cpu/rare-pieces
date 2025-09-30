@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, Star, Crown } from 'lucide-react';
+import { CircleCheck as CheckCircle, Star, Crown } from 'lucide-react';
 
 const PricingPage = () => {
   const pricingPlans = [
