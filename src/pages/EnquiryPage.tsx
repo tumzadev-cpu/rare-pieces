@@ -22,7 +22,8 @@ const EnquiryPage = () => {
     { value: 'judgement-removal', label: 'Judgement Removal (R8,000)', price: 'R8,000' },
     { value: 'fraud-listing', label: 'Unlawful Fraud Listing Removal (R8,000)', price: 'R8,000' },
     { value: 'credit-report', label: 'Detailed Credit Report (R500)', price: 'R500' },
-    { value: 'bank-loans', label: 'Bank Loans Assistance (Quote on Request)', price: 'Contact for Quote' }
+    { value: 'bank-loans', label: 'Bank Loans Assistance (Quote on Request)', price: 'Contact for Quote' },
+    { value: 'consolidation-loans', label: 'Consolidation Loans for Permanently Employed Government Employees - Up to R250,000', price: 'Contact for Quote' }
   ];
 
   const handleInputChange = (e) => {

@@ -67,6 +67,15 @@ const ServicesPage = () => {
       timeline: "Circumstantial - No Credit Applications to be initiated by Client during this period",
       icon: <Banknote className="w-12 h-12 text-teal-500" />
     }
+    },
+    {
+      title: "Consolidation Loans for Permanently Employed Government Employees",
+      description: "Debt consolidation loans up to R250,000 for permanently employed government employees.",
+      details: "Consolidate your existing debts into one manageable monthly payment. Available exclusively for permanently employed government employees with qualifying income.",
+      requiredDocs: ["3 Months Bank Statement", "Latest 3 Months Payslips", "ID Copy", "Settlement Letters"],
+      fee: "Contact for Quote",
+      timeline: "Circumstantial - No Credit Applications to be initiated by Client during this period",
+      icon: <Banknote className="w-12 h-12 text-emerald-500" />
   ];
 
   return (
