@@ -1,37 +1,221 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Shield, Award, Users, Clock, CircleCheck as CheckCircle, Target } from 'lucide-react';
+import React, { useState } from 'react';
+import { MessageCircle, Upload, CircleCheck as CheckCircle, Send, Loader } from 'lucide-react';
 
-const AboutPage = () => {
-  const values = [
-    {
-      icon: <Shield className="w-8 h-8 text-blue-500" />,
-      title: "Legal & Professional",
-      description: "All our credit repair methods are 100% legal and compliant with South African credit laws and regulations."
-    },
-    {
-      icon: <Award className="w-8 h-8 text-amber-500" />,
-      title: "Proven Expertise",
-      description: "Years of experience in credit repair with hundreds of successful cases across South Africa."
-    },
-    {
-      icon: <Users className="w-8 h-8 text-green-500" />,
-      title: "Client-Focused",
-      description: "We prioritize our clients' financial wellbeing and provide personalized solutions for each case."
-    },
-    {
-      icon: <Clock className="w-8 h-8 text-purple-500" />,
-      title: "Efficient Process",
-      description: "Streamlined procedures ensure faster turnaround times while maintaining quality and accuracy."
+const EnquiryPage = () => {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    service: '',
+    message: '',
+    documents: null
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const services = [
+    { value: 'credit-score-fix', label: 'Credit Score Fix / Adverse Accounts (R6,000)', price: 'R6,000' },
+    { value: 'prescribed-debt', label: 'Prescribed Debt Removal (R6,000)', price: 'R6,000' },
+    { value: 'debt-review-single', label: 'Debt Review Removal - Single (R8,000)', price: 'R8,000' },
+    { value: 'debt-review-married', label: 'Debt Review Removal - Married/COP (R16,000)', price: 'R16,000' },
+    { value: 'judgement-removal', label: 'Judgement Removal (R8,000)', price: 'R8,000' },
+    { value: 'fraud-listing', label: 'Unlawful Fraud Listing Removal (R8,000)', price: 'R8,000' },
+    { value: 'credit-report', label: 'Detailed Credit Report (R500)', price: 'R500' },
+    { value: 'bank-loans', label: 'Bank Loans Assistance (Quote on Request)', price: 'Contact for Quote' }
+  ];
+
+  const handleInputChange = (e) => {
+    const { name, value, type, files } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'file' ? files[0] : value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('fullName', formData.fullName);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('service', getSelectedServiceLabel());
+      formDataToSend.append('message', formData.message || 'No additional message provided');
+      
+      if (formData.documents) {
+        formDataToSend.append('documents', formData.documents);
+      }
+
+      const response = await fetch('https://formspree.io/f/xpwyayak', {
+        method: 'POST',
+        body: formDataToSend,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        const errorData = await response.json();
+        setSubmitError(errorData.error || 'Failed to submit enquiry. Please try again.');
+      }
+    } catch (error) {
+      setSubmitError('Network error. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-  ];
+  };
 
-  const achievements = [
-    { number: "500+", label: "Clients Helped" },
-    { number: "95%", label: "Success Rate" },
-    { number: "8+", label: "Years Experience" },
-    { number: "24/7", label: "Support Available" }
-  ];
+  const getSelectedServiceLabel = () => {
+    const selected = services.find(service => service.value === formData.service);
+    return selected ? selected.label : '';
+  };
+
+  const getSelectedServicePrice = () => {
+    const selected = services.find(service => service.value === formData.service);
+    return selected ? selected.price : '';
+  };
+
+  const whatsappMessage = `Hi Rare Pieces, I submitted my enquiry for ${getSelectedServiceLabel()}. My name is ${formData.fullName}. Please contact me to discuss payment and next steps.`;
+  const whatsappUrl = `https://wa.me/27784306215?text=${encodeURIComponent(whatsappMessage)}`;
+
+  const resetForm = () => {
+    setFormData({
+      fullName: '',
+      email: '',
+      phone: '',
+      service: '',
+      message: '',
+      documents: null
+    });
+    setIsSubmitted(false);
+    setSubmitError('');
+  };
+
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Success Message */}
+          <div className="bg-green-50 border border-green-200 rounded-2xl p-8 mb-8 text-center">
+            <div className="flex justify-center mb-6">
+              <div className="bg-green-100 rounded-full p-4">
+                <CheckCircle className="w-16 h-16 text-green-500" />
+              </div>
+            </div>
+            <h2 className="text-3xl font-bold text-green-800 mb-4">Enquiry Submitted Successfully!</h2>
+            <p className="text-green-700 text-lg mb-6">
+              Thank you, <strong>{formData.fullName}</strong>! We have received your enquiry for <strong>{getSelectedServiceLabel()}</strong>.
+            </p>
+            <div className="bg-white border border-green-200 rounded-lg p-6 mb-6">
+              <h3 className="text-lg font-semibold text-green-800 mb-2">What happens next?</h3>
+              <ul className="text-left text-green-700 space-y-2">
+                <li className="flex items-center">
+                  <CheckCircle size={16} className="text-green-500 mr-2" />
+                  Make payment using the banking details below
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle size={16} className="text-green-500 mr-2" />
+                  Send proof of payment via WhatsApp
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle size={16} className="text-green-500 mr-2" />
+                  Once payment is confirmed, we'll start your case
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Banking Details */}
+          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 mb-8">
+            <h3 className="text-2xl font-bold text-blue-800 mb-6 text-center">Banking Details for Payment</h3>
+            <div className="bg-white rounded-lg p-6 shadow-md">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-gray-700 mb-1">Account Holder</h4>
+                  <p className="text-lg font-bold text-gray-900">S.I. Bopape</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-700 mb-1">Bank Name</h4>
+                  <p className="text-lg font-bold text-gray-900">Nedbank</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-700 mb-1">Account Number</h4>
+                  <p className="text-lg font-bold text-gray-900">1224250532</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-700 mb-1">Branch Code</h4>
+                  <p className="text-lg font-bold text-gray-900">198765</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-700 mb-1">Account Type</h4>
+                  <p className="text-lg font-bold text-gray-900">Current Account</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-700 mb-1">Amount to Pay</h4>
+                  <p className="text-lg font-bold text-brand-navy">{getSelectedServicePrice()}</p>
+                </div>
+              </div>
+              
+              <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-yellow-800 font-medium">
+                  <strong>Important:</strong> Use your full name "{formData.fullName}" as the payment reference.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Service Summary */}
+          <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">Your Selected Service</h3>
+            <div className="bg-brand-soft-blue border border-brand-blue rounded-lg p-6">
+              <h4 className="text-xl font-semibold text-brand-navy mb-2">{getSelectedServiceLabel()}</h4>
+              <p className="text-2xl font-bold text-brand-navy">{getSelectedServicePrice()}</p>
+            </div>
+          </div>
+
+          {/* Contact Options */}
+          <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">Send Proof of Payment</h3>
+            <p className="text-gray-600 mb-6">
+              After making payment, send your proof of payment via WhatsApp for immediate processing.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center space-x-3 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300"
+              >
+                <MessageCircle size={20} />
+                <span>Send Proof of Payment</span>
+              </a>
+              <a
+                href="mailto:info@rarepieces.co.za?subject=Enquiry Follow-up"
+                className="flex items-center justify-center space-x-3 bg-brand-blue hover:bg-brand-light-blue text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300"
+              >
+                <Send size={20} />
+                <span>Email Us</span>
+              </a>
+            </div>
+
+            <button
+              onClick={resetForm}
+              className="text-brand-blue hover:text-brand-dark-blue font-medium transition-colors duration-300"
+            >
+              Submit Another Enquiry
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pb-20">
@@ -49,199 +233,218 @@ const AboutPage = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/30 via-brand-dark-blue/20 to-brand-navy/30 z-10"></div>
         
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center bg-amber-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-amber-300 text-sm font-medium mb-6">
-            <Award className="w-4 h-4 mr-2" />
-            Established 2016
+          <div className="inline-flex items-center bg-green-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-green-300 text-sm font-medium mb-6">
+            <Send className="w-4 h-4 mr-2" />
+            Free Consultation
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            About Rare Pieces Credit Solutions
+            Submit Your Enquiry
           </h1>
           <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Your trusted partner in credit repair and financial rehabilitation across South Africa
+            Complete the form below to start your credit repair journey. We'll contact you with payment details and next steps.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <div className="flex items-center bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full">
-              <Users className="w-5 h-5 text-brand-light-blue mr-2" />
-              <span className="text-sm font-medium">500+ Clients Helped</span>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg mx-auto">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+              <div className="text-lg font-semibold text-brand-light-blue">Step 1</div>
+              <div className="text-sm text-gray-300">Submit Form</div>
             </div>
-            <div className="flex items-center bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full">
-              <Shield className="w-5 h-5 text-green-400 mr-2" />
-              <span className="text-sm font-medium">Registered Company</span>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+              <div className="text-lg font-semibold text-brand-light-blue">Step 2</div>
+              <div className="text-sm text-gray-300">Make Payment</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Company Overview */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">
-              Helping South Africans Achieve Financial Freedom
-            </h2>
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Rare Pieces Credit Solutions is a registered South African company specializing in professional 
-              credit repair services. Since our establishment, we have been dedicated to helping individuals 
-              overcome credit challenges and rebuild their financial futures.
-            </p>
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Our team of credit repair specialists understands the South African credit landscape and works 
-              within the legal framework to provide effective solutions for debt review removal, adverse account 
-              clearance, judgement removal, and credit score improvement.
-            </p>
-            <div className="bg-brand-cream border border-brand-beige rounded-lg p-6">
-              <p className="text-brand-brown">
-                <strong>Company Registration:</strong> 2016/310023/07
+      {/* Form */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div className="bg-gray-50 px-8 py-6 border-b border-gray-200">
+            <h2 className="text-2xl font-bold text-slate-900">Credit Repair Enquiry Form</h2>
+            <p className="text-gray-600 mt-2">Please provide accurate information for faster processing</p>
+          </div>
+
+          <div className="p-8 space-y-6">
+            {/* Error Message */}
+            {submitError && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <p className="text-red-700">{submitError}</p>
+              </div>
+            )}
+
+            {/* Personal Information */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="fullName" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  required
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-colors"
+                  placeholder="Enter your full name"
+                  disabled={isSubmitting}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-colors"
+                  placeholder="Enter your email address"
+                  disabled={isSubmitting}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
+                Phone/WhatsApp Number *
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-colors"
+                placeholder="e.g., +27 78 123 4567"
+                disabled={isSubmitting}
+              />
+            </div>
+
+            {/* Service Selection */}
+            <div>
+              <label htmlFor="service" className="block text-sm font-semibold text-gray-700 mb-2">
+                Select Service *
+              </label>
+              <select
+                id="service"
+                name="service"
+                required
+                value={formData.service}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-colors"
+                disabled={isSubmitting}
+              >
+                <option value="">Choose a service...</option>
+                {services.map((service) => (
+                  <option key={service.value} value={service.value}>
+                    {service.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Optional Message */}
+            <div>
+              <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
+                Additional Message (Optional)
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                value={formData.message}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-colors"
+                placeholder="Tell us more about your situation or any specific requirements..."
+                disabled={isSubmitting}
+              />
+            </div>
+
+            {/* Document Upload */}
+            <div>
+              <label htmlFor="documents" className="block text-sm font-semibold text-gray-700 mb-2">
+                Upload Documents (Optional)
+              </label>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-brand-blue transition-colors">
+                <div className="text-center">
+                  <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                  <p className="text-sm text-gray-600 mb-2">
+                    Click to upload or drag and drop files here
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    PDF, JPG, PNG files up to 10MB
+                  </p>
+                  <input
+                    type="file"
+                    id="documents"
+                    name="documents"
+                    onChange={handleInputChange}
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    className="hidden"
+                    disabled={isSubmitting}
+                  />
+                  <label
+                    htmlFor="documents"
+                    className={`inline-block mt-2 px-4 py-2 rounded-lg cursor-pointer transition-colors ${
+                      isSubmitting 
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                        : 'bg-brand-blue hover:bg-brand-light-blue text-white'
+                    }`}
+                  >
+                    Choose Files
+                  </label>
+                </div>
+              </div>
+              {formData.documents && (
+                <p className="mt-2 text-sm text-gray-600">
+                  Selected: {formData.documents.name}
+                </p>
+              )}
+            </div>
+
+            {/* Submit Button */}
+            <div className="pt-6">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-300 flex items-center justify-center space-x-3 ${
+                  isSubmitting
+                    ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                    : 'bg-brand-navy hover:bg-brand-dark-blue text-white'
+                }`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader className="w-5 h-5 animate-spin" />
+                    <span>Submitting...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    <span>Submit Enquiry</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Privacy Notice */}
+            <div className="text-sm text-gray-600 bg-gray-50 p-4 rounded-lg">
+              <p>
+                <strong>Privacy Notice:</strong> Your information is kept strictly confidential and is used only for processing your credit repair case. 
+                We comply with all South African data protection regulations.
               </p>
             </div>
           </div>
-          <div>
-            <img 
-              src="/rare-pieces-of.essence.jpg"
-              alt="Rare Pieces Credit Solutions"
-              className="w-full h-auto rounded-2xl shadow-lg"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Mission & Vision */}
-      <div className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <div className="flex items-center mb-6">
-                <Target className="w-8 h-8 text-brand-blue mr-3" />
-                <h3 className="text-2xl font-bold text-slate-900">Our Mission</h3>
-              </div>
-              <p className="text-gray-700 leading-relaxed">
-                To provide professional, legal, and effective credit repair solutions that empower South Africans 
-                to overcome financial obstacles and achieve their dreams of homeownership, business ownership, 
-                and financial stability.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <div className="flex items-center mb-6">
-                <Award className="w-8 h-8 text-brand-blue mr-3" />
-                <h3 className="text-2xl font-bold text-slate-900">Our Vision</h3>
-              </div>
-              <p className="text-gray-700 leading-relaxed">
-                To become South Africa's most trusted credit repair company, known for our integrity, 
-                professionalism, and commitment to helping clients achieve lasting financial wellness 
-                and creditworthiness.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Values */}
-      <div className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Our Core Values</h2>
-            <p className="text-xl text-gray-600">
-              The principles that guide everything we do
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <div key={index} className="text-center">
-                <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  <div className="mb-4">{value.icon}</div>
-                  <h3 className="text-xl font-semibold text-slate-900 mb-3">{value.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Achievements */}
-      <div className="bg-brand-navy text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Our Track Record</h2>
-            <p className="text-xl text-gray-300">
-              Numbers that demonstrate our commitment to client success
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {achievements.map((achievement, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl sm:text-5xl font-bold text-brand-light-blue mb-2">
-                  {achievement.number}
-                </div>
-                <div className="text-gray-300 text-lg">
-                  {achievement.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Services Overview */}
-      <div className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">What We Specialize In</h2>
-            <p className="text-xl text-gray-600">
-              Comprehensive credit repair solutions for every situation
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              "Debt Review Removal",
-              "Prescribed Debt Removal", 
-              "Judgement Removal",
-              "Adverse Accounts Removal",
-              "Credit Score Fix",
-              "Unlawful Fraud Listing Removal",
-              "Detailed Credit Reports",
-              "Bank Loans (Quick Approval)"
-            ].map((service, index) => (
-              <div key={index} className="flex items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                <CheckCircle className="w-6 h-6 text-green-500 mr-3 flex-shrink-0" />
-                <span className="text-gray-700 font-medium">{service}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* CTA */}
-      <div className="bg-gradient-to-r from-brand-soft-blue to-brand-light-blue py-16">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy mb-6">
-            Ready to Work with Us?
-          </h2>
-          <p className="text-xl text-brand-navy mb-8">
-            Let's discuss how we can help improve your credit situation and secure your financial future.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/enquiry"
-              className="bg-brand-navy hover:bg-brand-dark-blue text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300"
-            >
-              Start Your Enquiry
-            </Link>
-            <Link
-              to="/contact"
-              className="bg-white hover:bg-brand-cream text-brand-navy px-8 py-4 rounded-lg font-semibold transition-colors duration-300"
-            >
-              Contact Us
-            </Link>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   );
 };
 
-export default AboutPage;
+export default EnquiryPage;
